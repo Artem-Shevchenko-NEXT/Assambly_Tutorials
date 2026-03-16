@@ -7,7 +7,7 @@
 	.equ CursorY, ramarea+33
 
 	.arm
-	.align 4
+	.balign 4
 	.global main
 
 main:
@@ -24,8 +24,9 @@ InfLoop:
     b InfLoop					@ Halt
 	
 HelloWorld:
-	.byte 'H','e','l','l','o',' ','W','o','r','l','d',255
-	.align 4
+	.ascii "Hello World"
+	.byte 255
+	.balign 4
 	
 @ ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
@@ -47,9 +48,9 @@ PrintChar:
 	mov r4, #0
 	mov r5, #0
 	
-	mov r3, #CursorX
+	ldr r3, =CursorX            @ ARM cannot MOV complex constants like 0x02000020
 	ldrb r4, [r3]			    @ X pos
-	mov r3, #CursorY
+	ldr r3, =CursorY
 	ldrb r5, [r3]			    @ Y pos
 	
 	mov r3, #0x06000000 		@ VRAM base
@@ -87,7 +88,7 @@ DrawPixel:
 	bne DrawLine			    @ Next Vline
 	
 LineDone:	
-	mov r3, #CursorX
+	ldr r3, =CursorX
 	ldrb r0, [r3]	
 	add r0, r0, #1			    @ Move across screen
 	strb r0, [r3]	
@@ -95,7 +96,7 @@ LineDone:
 
 @ ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 	
-	.align 4
+	.balign 4
 BitmapFont:
         .byte 0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x00     @  0
         .byte 0x10,0x18,0x18,0x18,0x18,0x00,0x18,0x00     @  1
