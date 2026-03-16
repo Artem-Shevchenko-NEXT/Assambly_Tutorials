@@ -5,10 +5,10 @@
             "name": "mGBA Debug",
             "type": "cppdbg",
             "request": "launch",
-            "program": "${workspaceFolder}/Hello_World.elf",
+            "program": "${workspaceFolder}/${input:tutorialFolder}/${input:tutorialFolder}.elf",
             "args": [],
             "stopAtEntry": true,
-            "cwd": "${workspaceFolder}",
+            "cwd": "${workspaceFolder}/${input:tutorialFolder}",
             "environment": [],
             "externalConsole": false,
             "MIMode": "gdb",
@@ -21,6 +21,14 @@
                     "ignoreFailures": true
                 }
             ]
+        }
+    ],
+    "inputs": [
+        {
+            "id": "tutorialFolder",
+            "type": "promptString",
+            "description": "Enter the name of the tutorial folder you want to debug (e.g., Hello_World)",
+            "default": "Hello_World"
         }
     ]
 }

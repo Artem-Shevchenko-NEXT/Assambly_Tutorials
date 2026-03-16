@@ -5,6 +5,9 @@
             "label": "Build GBA ROM",
             "type": "shell",
             "command": "make",
+            "options": {
+                "cwd": "${workspaceFolder}/${input:tutorialFolder}"
+            },
             "group": {
                 "kind": "build",
                 "isDefault": true
@@ -14,7 +17,18 @@
         {
             "label": "Clean Project",
             "type": "shell",
-            "command": "make clean"
+            "command": "make clean",
+            "options": {
+                "cwd": "${workspaceFolder}/${input:tutorialFolder}"
+            }
+        }
+    ],
+    "inputs": [
+        {
+            "id": "tutorialFolder",
+            "type": "promptString",
+            "description": "Enter the name of the tutorial folder you want to build (e.g., Hello_World)",
+            "default": "Hello_World"
         }
     ]
 }
